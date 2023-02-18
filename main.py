@@ -1,16 +1,16 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Item:
+    discount_rate = 0.85 # уровень цен с учетом скидки
+    all = []  # список созданных товаров
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    def __init__(self, name, price, quantity):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+        self.__class__.all.append(self)  # добавляем экземпляр в список созданных товаров
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    def calculate_total_price(self):
+        return self.price * self.quantity
+
+    def apply_discount(self):
+        self.price *= self.__class__.discount_rate
