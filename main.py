@@ -15,7 +15,7 @@ class Item:
     def instantiate_from_csv(cls, path):
         """Создаёт новые экзэмпляры из csv файла"""
         with open(path, 'r', encoding='windows-1251', newline='') as fp:
-            data = csv.DictReader(fp)
+            data = csv.DictWriter(fp)
             for row in data:
                 name = row['name']
                 price = int(float(row['price']))
