@@ -18,6 +18,7 @@ class TestItem:
             {'name': 'item3', 'price': '30.0', 'quantity': '2.0'}
         ]
         file_path = tmp_path / 'test.csv'
+
         with open(file_path, 'w', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=['name', 'price', 'quantity'])
             writer.writeheader()
@@ -88,3 +89,20 @@ class TestItem:
 
         # Act
         result = Item.is_integer(n)
+
+        # Assert
+        assert result == False
+
+    @pytest.fixture
+    def item(self):
+        return Item("Смартфон", 10000, 20)
+
+    def test_item_repr(self, item):
+        assert repr(item) == "Item('Смартфон', 10000, 20)"
+
+    def test_item_str(self, item):
+        assert str(item) == "Смартфон"
+
+
+
+
