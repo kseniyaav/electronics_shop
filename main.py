@@ -46,3 +46,11 @@ class Item:
 
     def apply_discount(self):
         return self.discount_rate * self.price
+
+    def __repr__(self):
+        return f"Item('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return self.__name
+
+

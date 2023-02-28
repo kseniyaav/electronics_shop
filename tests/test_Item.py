@@ -2,6 +2,7 @@ import pytest
 import csv
 from main import Item
 
+
 class TestItem:
 
     @pytest.fixture
@@ -9,7 +10,7 @@ class TestItem:
         return Item('test', 10, 2)
 
     @pytest.fixture
-    def csv_file(tmp_path):
+    def csv_file(self, tmp_path):
         # Создаем временный файл CSV и заполняем его данными
         csv_data = [
             {'name': 'item1', 'price': '10.0', 'quantity': '5.0'},
