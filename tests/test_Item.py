@@ -9,22 +9,6 @@ class TestItem:
     def item(self):
         return Item('test', 10, 2)
 
-    @pytest.fixture
-    def csv_file(self, tmp_path):
-        # Создаем временный файл CSV и заполняем его данными
-        csv_data = [
-            {'name': 'item1', 'price': '10.0', 'quantity': '5.0'},
-            {'name': 'item2', 'price': '20.0', 'quantity': '3.0'},
-            {'name': 'item3', 'price': '30.0', 'quantity': '2.0'}
-        ]
-        file_path = tmp_path / 'test.csv'
-
-        with open(file_path, 'w', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=['name', 'price', 'quantity'])
-            writer.writeheader()
-            writer.writerows(csv_data)
-        return file_path
-
     def test_calculate_total_price(self, item):
         assert item.calculate_total_price() == 20
 
@@ -42,6 +26,22 @@ class TestItem:
         assert item.name == 'test'
         assert item.price == 10
         assert item.quantity == 2
+
+    @pytest.fixture
+    def csv_file(self, tmp_path):
+        # Создаем временный файл CSV и заполняем его данными
+        csv_data = [
+            {'name': 'item1', 'price': '10.0', 'quantity': '5.0'},
+            {'name': 'item2', 'price': '20.0', 'quantity': '3.0'},
+            {'name': 'item3', 'price': '30.0', 'quantity': '2.0'}
+        ]
+        file_path = tmp_path / 'test.csv'
+
+        with open(file_path, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['name', 'price', 'quantity'])
+            writer.writeheader()
+            writer.writerows(csv_data)
+        return file_path
 
     def test_instantiate_from_csv_returns_list_of_objects(self, csv_file):
         items = Item.instantiate_from_csv(csv_file)
@@ -102,6 +102,8 @@ class TestItem:
 
     def test_item_str(self, item):
         assert str(item) == "Смартфон"
+
+
 
 
 
