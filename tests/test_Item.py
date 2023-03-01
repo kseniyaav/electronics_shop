@@ -6,6 +6,10 @@ from main import Item
 class TestItem:
 
     @pytest.fixture
+    def item(self):
+        return Item('test', 10, 2)
+
+    @pytest.fixture
     def csv_file(self, tmp_path):
         # Создаем временный файл CSV и заполняем его данными
         csv_data = [
@@ -21,17 +25,12 @@ class TestItem:
             writer.writerows(csv_data)
         return file_path
 
-    @pytest.fixture(autouse=True)
-    def setUp(self):
-        Item.all = []
-
     def test_calculate_total_price(self, item):
-        item = Item('test_item', 100, 2)
-        assert item.calculate_total_price() == 200
+        assert item.calculate_total_price() == 20
 
     def test_apply_discount(self, item):
-        item = Item('test_item', 100, 2)
-        assert item.apply_discount() == 85.
+        item.price = item.apply_discount()
+        assert item.price == 8.5
 
     def test_all_items(self, item):
         assert item in Item.all
@@ -40,9 +39,8 @@ class TestItem:
         assert Item.discount_rate == 0.85
 
     def test_item_attributes(self, item):
-        item = Item('test_item', 100, 2)
-        assert item.name == 'test_item'
-        assert item.price == 100
+        assert item.name == 'test'
+        assert item.price == 10
         assert item.quantity == 2
 
     def test_instantiate_from_csv_returns_list_of_objects(self, csv_file):
