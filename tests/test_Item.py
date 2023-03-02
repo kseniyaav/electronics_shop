@@ -1,6 +1,6 @@
 import pytest
 import csv
-from main import Item
+from src.main import Item
 
 
 class TestItem:
