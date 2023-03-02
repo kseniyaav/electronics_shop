@@ -1,6 +1,6 @@
 import pytest
 import csv
-from main import Item
+from src.main import Item
 
 
 class TestItem:
@@ -104,6 +104,8 @@ class TestItem:
 
     def test_item_str(self, item):
         assert str(item) == "Смартфон"
+
+
 
 
 
