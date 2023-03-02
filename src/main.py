@@ -11,6 +11,7 @@ class Item:
         self.quantity = quantity
         self.__class__.all.append(self)  # добавляем экземпляр в список созданных товаров
 
+
     @classmethod
     def instantiate_from_csv(cls, path):
         """Создаёт новые экзэмпляры из csv файла"""
@@ -40,6 +41,7 @@ class Item:
             self.__name = value
         else:
             print('Exception: Длина наименования товара превышает 10 допустимых символов.')
+
 
     def calculate_total_price(self):
         return self.price * self.quantity
