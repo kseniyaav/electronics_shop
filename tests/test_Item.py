@@ -8,6 +8,7 @@ class TestItem:
     @pytest.fixture
     def item(self):
         return Item('test', 10, 2)
+        
 
     def test_calculate_total_price(self, item):
         assert item.calculate_total_price() == 20
@@ -26,6 +27,7 @@ class TestItem:
         assert item.name == 'test'
         assert item.price == 10
         assert item.quantity == 2
+        
 
     @pytest.fixture
     def csv_file(self, tmp_path):
@@ -42,6 +44,7 @@ class TestItem:
             writer.writeheader()
             writer.writerows(csv_data)
         return file_path
+
 
     def test_instantiate_from_csv_returns_list_of_objects(self, csv_file):
         items = Item.instantiate_from_csv(csv_file)
@@ -93,9 +96,11 @@ class TestItem:
         # Assert
         assert result == False
 
+
     @pytest.fixture
     def item(self):
         return Item("Смартфон", 10000, 20)
+
 
     def test_item_repr(self, item):
         assert repr(item) == "Item('Смартфон', 10000, 20)"
