@@ -77,11 +77,12 @@ class Phone(Item):
         return self.name
 
     def __add__(self, other):
-        if not isinstance(other, Item):
+        if not isinstance(other, Phone):
             raise TypeError("Нельзя сложить экземпляр класса Phone с объектом другого класса.")
-        if type(self) != type(other):
-            raise TypeError("Нельзя сложить экземпляры разных классов.")
         return type(self)(self.name, self.price, self.quantity + other.quantity, self.number_of_sim)
 
     def __radd__(self, other):
+        if not isinstance(other, Phone):
+            raise TypeError("Нельзя сложить экземпляр класса Phone с объектом другого класса.")
         return self.__add__(other)
+
