@@ -54,3 +54,34 @@ class Item:
 
     def __str__(self):
         return self.__name
+
+class Phone(Item):
+    def __init__(self, name, price, quantity, number_of_sim):
+        super().__init__(name, price, quantity)
+        self.__number_of_sim = number_of_sim
+
+    @property
+    def number_of_sim(self):
+        return self.__number_of_sim
+
+    @number_of_sim.setter
+    def number_of_sim(self, value):
+        if not self.is_integer(value) or value <= 0:
+            raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля.")
+        self.__number_of_sim = value
+
+    def __repr__(self):
+        return f"Phone('{self.name}', {self.price}, {self.quantity}, {self.number_of_sim})"
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise TypeError("Нельзя сложить экземпляр класса Phone с объектом другого класса.")
+        if type(self) != type(other):
+            raise TypeError("Нельзя сложить экземпляры разных классов.")
+        return type(self)(self.name, self.price, self.quantity + other.quantity, self.number_of_sim)
+
+    def __radd__(self, other):
+        return self.__add__(other)
