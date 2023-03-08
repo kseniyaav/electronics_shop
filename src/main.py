@@ -213,29 +213,43 @@ class Phone(Item):
 
 
 class LanguageMixin:
+    """Дополнительный функционал по хранению и изменению раскладки клавиатуры"""
+
     def __init__(self, language='EN'):
+        """Инициализирует атрибут языка."""
+
         self._language = language
 
     @property
-    def language(self):
+    def language(self) -> str:
+        """str: Возвращает язык."""
+
         return self._language
 
     def change_lang(self):
+        """Меняет язык между 'EN' и 'RU'."""
+
         self._language = 'RU' if self._language == 'EN' else 'EN'
 
 
 class Keyboard(Item, LanguageMixin):
+    """Представляет элемент "клавиатура"""
+
     def __init__(self, name, price, quantity, language='EN'):
         Item.__init__(self, name, price, quantity)
         LanguageMixin.__init__(self, language)
 
     @property
-    def language(self):
+    def language(self) -> str:
+        """str: Возвращает язык клавиатуры."""
+
         return self._language
 
     @language.setter
     def language(self, value):
+        """Вызывает AttributeError, если меняется атрибут"""
         raise AttributeError("can't set attribute")
 
     def change_lang(self):
+        """Меняет язык клавиатуры между 'EN' и 'RU'."""
         super().change_lang()
