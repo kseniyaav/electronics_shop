@@ -25,6 +25,10 @@ class TestItem:
     def setUp(self):
         Item.all = []
 
+    @pytest.fixture
+    def item(self):
+        return Item("Смартфон", 10000, 20)
+
     def test_calculate_total_price(self, item):
         item = Item('test_item', 100, 2)
         assert item.calculate_total_price() == 200
@@ -95,18 +99,8 @@ class TestItem:
         # Assert
         assert result == False
 
-    @pytest.fixture
-    def item(self):
-        return Item("Смартфон", 10000, 20)
-
     def test_item_repr(self, item):
         assert repr(item) == "Item('Смартфон', 10000, 20)"
 
     def test_item_str(self, item):
         assert str(item) == "Смартфон"
-
-
-
-
-
-
