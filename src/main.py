@@ -1,6 +1,10 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    pass
+
+
 class Item:
     """
         Класс товара, имеющий следующие атрибуты:
@@ -29,7 +33,7 @@ class Item:
         self.__class__.all.append(self)  # добавляем экземпляр в список созданных товаров
 
     @classmethod
-    def instantiate_from_csv(cls, path: str) -> list:
+    def instantiate_from_csv(cls, path: str = 'items.csv') -> list:
         """
         Создает новые экземпляры товаров из CSV-файла.
 
@@ -50,10 +54,10 @@ class Item:
                             item = cls(name, price, quantity)
                         except ValueError as e:
                             print(f"Не удалось создать товар {name}: {str(e)}")
-                    else:
-                        print(f"CSV-файл не содержит все необходимые поля для создания товара: {required_fields}")
-        except FileNotFoundError as e:
-            print(f"CSV-файл не найден: {str(e)}")
+                        else:
+                            raise InstantiateCSVError('Файл item.csv поврежден')
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
         return cls.all
 
     @staticmethod
