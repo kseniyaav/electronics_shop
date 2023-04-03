@@ -55,7 +55,7 @@ class Item:
                         except ValueError as e:
                             print(f"Не удалось создать товар {name}: {str(e)}")
                         else:
-                            raise InstantiateCSVError('Файл item.csv поврежден')
+                            raise Exception('description')
         except FileNotFoundError:
             raise FileNotFoundError('Отсутствует файл item.csv')
         return cls.all
